@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 import time
 import os
+import json
 from typing import Dict
 
 from app.models import (
@@ -103,9 +104,10 @@ async def receive_ticket(
             requires_approval = planner.requires_approval(plan)
             
             # Save plan to database
+            plan_dict = plan.model_dump(mode='json')  # mode='json' handles datetime serialization
             plan_db = PlanDB(
                 ticket_id=ticket.ticket_id,
-                plan_data=plan.model_dump(),
+                plan_data=plan_dict,
                 requires_approval=requires_approval,
                 approved=False
             )

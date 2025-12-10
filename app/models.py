@@ -44,8 +44,8 @@ class Plan(BaseModel):
     steps: List[PlanStep]
     created_at: datetime = Field(default_factory=datetime.utcnow)
     
-    class Config:
-        json_schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "ticket_id": "t100",
                 "steps": [
@@ -64,6 +64,7 @@ class Plan(BaseModel):
                 ]
             }
         }
+    }
 
 
 class ToolResult(BaseModel):
