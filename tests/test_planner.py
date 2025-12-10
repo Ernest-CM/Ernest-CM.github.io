@@ -123,7 +123,7 @@ def test_planner_requires_approval_for_destructive_plan(password_reset_ticket):
     plan = planner.create_plan(password_reset_ticket)
     
     requires_approval = planner.requires_approval(plan)
-    assert requires_approval == True
+    assert requires_approval is True
 
 
 def test_planner_does_not_require_approval_for_safe_plan(sample_ticket):
@@ -133,4 +133,4 @@ def test_planner_does_not_require_approval_for_safe_plan(sample_ticket):
     
     requires_approval = planner.requires_approval(plan)
     # CSV upload issue shouldn't have destructive steps in mock LLM
-    assert requires_approval == False
+    assert requires_approval is False

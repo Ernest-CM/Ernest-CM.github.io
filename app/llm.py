@@ -102,7 +102,7 @@ class MockLLMProvider(LLMProvider):
                     "step": 4,
                     "tool": "reply_ticket",
                     "args": {
-                        "ticket_id": "t100",
+                        "ticket_id": "t100",  # Note: Mock LLM uses hardcoded ticket IDs
                         "message": "Found bug, please update to v2.1.1. If you want, we can apply a temporary patch (requires approval)."
                     }
                 }
@@ -145,7 +145,7 @@ class MockLLMProvider(LLMProvider):
                     "step": 3,
                     "tool": "reply_ticket",
                     "args": {
-                        "ticket_id": "t100",
+                        "ticket_id": "t100",  # Note: Mock LLM uses hardcoded ticket IDs
                         "message": "Thank you for your inquiry. We are investigating the issue."
                     }
                 }
