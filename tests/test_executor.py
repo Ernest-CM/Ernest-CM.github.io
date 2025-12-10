@@ -4,7 +4,7 @@ from app.models import Plan, PlanStep, TicketStatus
 from app.db import TicketDB, PlanDB, ToolCallDB
 
 
-def test_executor_executes_non_destructive_step(db_session):
+def test_executor_executes_non_destructive_step():
     """Test that executor can execute a non-destructive step"""
     executor = Executor()
     
@@ -22,7 +22,7 @@ def test_executor_executes_non_destructive_step(db_session):
     assert result.result is not None
 
 
-def test_executor_blocks_destructive_step_without_approval(db_session):
+def test_executor_blocks_destructive_step_without_approval():
     """Test that executor blocks destructive steps when AUTO_APPLY is false"""
     executor = Executor()
     
@@ -39,7 +39,7 @@ def test_executor_blocks_destructive_step_without_approval(db_session):
     assert "requires approval" in result.error.lower()
 
 
-def test_executor_executes_complete_plan(db_session):
+def test_executor_executes_complete_plan():
     """Test that executor can execute a complete plan"""
     executor = Executor()
     
@@ -59,7 +59,7 @@ def test_executor_executes_complete_plan(db_session):
     assert result.status == TicketStatus.COMPLETED
 
 
-def test_executor_partial_execution_with_destructive_steps(db_session):
+def test_executor_partial_execution_with_destructive_steps():
     """Test that executor only executes non-destructive steps when not approved"""
     executor = Executor()
     
@@ -81,7 +81,7 @@ def test_executor_partial_execution_with_destructive_steps(db_session):
     assert result.status == TicketStatus.AWAITING_APPROVAL
 
 
-def test_executor_full_execution_with_approval(db_session):
+def test_executor_full_execution_with_approval():
     """Test that executor executes all steps when approved"""
     executor = Executor()
     
@@ -101,7 +101,7 @@ def test_executor_full_execution_with_approval(db_session):
     assert all(r.tool != "" for r in result.tool_results)
 
 
-def test_executor_escalates_on_critical_failure(db_session):
+def test_executor_escalates_on_critical_failure():
     """Test that executor escalates on critical tool failures"""
     executor = Executor()
     

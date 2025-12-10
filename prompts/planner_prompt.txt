@@ -39,6 +39,6 @@ Body: {body}
 Output only the JSON array of steps, no other text. Example format:
 [
   {{"step": 1, "tool": "fetch_logs", "args": {{"user_id": "u123", "last_hours": 24}}}},
-  {{"step": 2, "tool": "kb_search", "args": {{"query": "CSV upload issues", "top_k": 3}}}},
+  {{"step": 2, "tool": "kb_search", "args": {{"query": "slow performance", "top_k": 3}}}},
   {{"step": 3, "tool": "reply_ticket", "args": {{"ticket_id": "t100", "message": "We are investigating your issue..."}}}}
 ]

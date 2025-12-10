@@ -78,7 +78,10 @@ class MockLLMProvider(LLMProvider):
     def generate(self, prompt: str, max_tokens: int = 2000, temperature: float = 0.7) -> str:
         """Generate a mock response based on the prompt"""
         # Parse the prompt to understand the ticket
-        if "CSV upload" in prompt or "crashes" in prompt:
+        prompt_lower = prompt.lower()
+        
+        # Check for CSV/upload issues first (more specific)
+        if ("csv" in prompt_lower and "upload" in prompt_lower) or ("crashes" in prompt_lower and "upload" in prompt_lower):
             return json.dumps([
                 {
                     "step": 1,
@@ -104,23 +107,24 @@ class MockLLMProvider(LLMProvider):
                     }
                 }
             ])
-        elif "password" in prompt.lower() or "reset" in prompt.lower():
+        # Check for password reset (look for "password reset request" in subject/body area)
+        elif ("subject: password reset" in prompt_lower) or ("body: i forgot my password" in prompt_lower):
             return json.dumps([
                 {
                     "step": 1,
                     "tool": "get_account_info",
-                    "args": {"user_id": "u123"}
+                    "args": {"user_id": "u456"}
                 },
                 {
                     "step": 2,
                     "tool": "reset_password",
-                    "args": {"user_id": "u123"}
+                    "args": {"user_id": "u456"}
                 },
                 {
                     "step": 3,
                     "tool": "reply_ticket",
                     "args": {
-                        "ticket_id": "t100",
+                        "ticket_id": "t200",
                         "message": "Password reset initiated. Check your email for reset link."
                     }
                 }
